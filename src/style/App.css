@@ -10,13 +10,13 @@ body {
 }
 
 .logo {
-  height: 4em;
+  height: 3em;
   /* width: 100%; */
   background: #FFFFFF;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3px 5px;
+  margin: 5px 5px;
   border-radius: 8px;
 }
 

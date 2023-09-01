@@ -11,15 +11,17 @@ import { ConfigProvider, theme } from "antd";
 import { USER_SETTINGS, USER_THEMES } from "./config"
 import { useState } from "react";
 import { PageNotFound } from "./pages/PageNotFound";
+import HomePage from "./pages/HomePage";
+import AppConfig from "./pages/AppConfig";
 
-const Pages = () => {
+export const Pages = () => {
     return (
         <Routes>
+            <Route path="/appconfig" element={<AppConfig />} />
             <Route path="/reviewideas" element={<ReviewIdeas />} />
             <Route path="/createidea" element={<CreateIdea />} />
             <Route path="/details" element={<EmployeeDetails />} />
-            <Route path="/" element={<EmployeeList />} />
-
+            <Route path="/" element={<HomePage />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
@@ -46,7 +48,8 @@ const App = ({ instance }) => {
         return {
             algorithm: theme.darkAlgorithm,
             token: {
-                "fontSize": 12
+                "fontSize": 12,
+                "headerbgc": '#1C1C1C'
             }
         }
     }
@@ -54,7 +57,8 @@ const App = ({ instance }) => {
         return {
             algorithm: theme.compactAlgorithm,
             token: {
-                "fontSize": 14
+                "fontSize": 14,
+                "headerbgc": '#092e5d'
             }
         }
     }
@@ -65,7 +69,6 @@ const App = ({ instance }) => {
                 theme = {getUserThemeSetting()}
             >
                 <PageLayout IsDarkTheme={IsDarkTheme} setIsDarkTheme={setIsDarkTheme}>
-                    <Pages />
                 </PageLayout>
             </ConfigProvider>
         </MsalProvider>

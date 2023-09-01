@@ -1,7 +1,7 @@
 import "../style/lighttheme.css"
-
+import menu from "./menu";
 import React, { useState } from 'react';
-import { Button, Layout, Menu, theme, Card, Switch, Space, Typography } from 'antd';
+import { Button, Layout, Menu, theme, Card, Switch, Space, Typography, Divider } from 'antd';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
 import { USER_THEMES } from "../config";
@@ -19,6 +19,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { Pages } from "../App";
 const { Header, Sider, Content } = Layout;
 
 
@@ -49,7 +50,7 @@ export const PageLayout = (props) => {
     const { IsDarkTheme, setIsDarkTheme } = props;
     const { instance } = useMsal();
     const [collapsed, setCollapsed] = useState(false);
-    const { token: { colorBgContainer, logoBackground } } = theme.useToken();
+    const { token: { colorBgContainer, logoBackground, headerbgc } } = theme.useToken();
 
     const navigate = useNavigate();
 
@@ -73,42 +74,21 @@ export const PageLayout = (props) => {
 
     return (
         <Layout>
-            <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
-                <div className="logo">
-                    <img src={window.location.origin + '/logo512.png'} alt="logo" />
-                </div>
-                <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    onClick={({ key }) => {
-                        navigate(key);
-                    }}
-                    items={getMenu()}
-                    theme={IsDarkTheme ? 'dark' : 'light'}
-                />
-            </Sider>
-            <Layout>
                 <Header
                     style={{
-                        padding: 0,
-                        background: colorBgContainer,
+                        padding: 10,
+                        background: headerbgc,
                     }}
                     className='header-content'
                 >
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
-                        }}
-                    />
-
+                     <div className="logo">
+                    <img src={window.location.origin + '/logo512.png'} alt="logo" />
+                </div>
+                <Divider type="vertical" style={{height: '20px', borderWidth: '1px', margin: '10px 10px', borderColor: '#FFFFFF'}}/>
+                
                     <div className="header-login-content">
                         <Space>
-                            <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
+                            <Switch size="medium" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
                                 unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
                             <AuthenticatedTemplate>
                                 <Space>
@@ -145,7 +125,30 @@ export const PageLayout = (props) => {
 
 
                 </Header>
-
+                <Layout>
+                <Button
+                        type="text"
+                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                        onClick={() => setCollapsed(!collapsed)}
+                        style={{
+                            fontSize: '16px',
+                            width: 64,
+                            height: 64,
+                            position:"absolute", zIndex:"2"
+                        }}
+                    />
+                <Sider style={{position:"relative", zIndex:"1"}} collapsedWidth = {0} trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
+                <Menu
+                style={{marginTop: '10vh'}}
+                    mode="inline"
+                    defaultSelectedKeys={['1']}
+                    onClick={({ key }) => {
+                        navigate(key);
+                    }}
+                    items={getMenu()}
+                    theme={IsDarkTheme ? 'dark' : 'light'}
+                />
+                </Sider>
                 <Content
                     style={{
                         margin: '24px 16px',
@@ -154,6 +157,7 @@ export const PageLayout = (props) => {
                         background: colorBgContainer,
                     }}
                 >
+                    <Pages/>
                     <Typography>
                         <AuthenticatedTemplate>
                             {props.children}
@@ -166,6 +170,6 @@ export const PageLayout = (props) => {
                     </Typography>
                 </Content>
             </Layout>
-        </Layout>
+            </Layout>
     )
 }
