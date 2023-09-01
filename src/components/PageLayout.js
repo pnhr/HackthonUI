@@ -121,9 +121,6 @@ export const PageLayout = (props) => {
                             </UnauthenticatedTemplate>
                         </Space>
                     </div>
-
-
-
                 </Header>
                 <Layout>
                 <Button
@@ -151,7 +148,7 @@ export const PageLayout = (props) => {
                 </Sider>
                 <Content
                     style={{
-                        margin: '24px 16px',
+                        margin: '50px 100px',
                         padding: 24,
                         minHeight: 'Calc(100vh - 10em)',
                         background: colorBgContainer,
@@ -159,14 +156,14 @@ export const PageLayout = (props) => {
                 >
                     <Pages/>
                     <Typography>
-                        <AuthenticatedTemplate>
-                            {props.children}
-                        </AuthenticatedTemplate>
-                        <UnauthenticatedTemplate>
-                            <Card type="inner" title={<span style={{ color: 'red' }}>Please Login!</span>} style={{ width: '100%' }}>
-                                <p>You have not logged in yet. Please <span onClick={handleLogin} style={{ color: 'blue', cursor: 'pointer' }}>login</span> to see your ideas.</p>
-                            </Card>
-                        </UnauthenticatedTemplate>
+                    <AuthenticatedTemplate>
+                    {props.children}
+                    </AuthenticatedTemplate>
+                    <UnauthenticatedTemplate>
+                    <Card type="inner" title={<span style={{ color: 'red' }}>Please Login!</span>} style={{ width: '100%' }}>
+                    <p>You have not logged in yet. Please <span onClick={handleLogin} style={{ color: 'blue', cursor: 'pointer' }}>login</span> to see your ideas.</p>
+                    </Card>
+                    </UnauthenticatedTemplate>
                     </Typography>
                 </Content>
             </Layout>
