@@ -58,9 +58,9 @@ export const EmployeeList = () => {
                         <List.Item>
                             <List.Item.Meta
                                 avatar={
-                                    <Avatar shape="square" style={getAvatarBackground(item.employeeId)} icon={getAvatarIcon(item.employeeId)} />
+                                    <Avatar shape="square" style={getAvatarBackground(item.userId)} icon={getAvatarIcon(item.userId)} />
                                 }
-                                title={<a href={`/details?${QUERY_STRINGS.EmployeeId}=${item.employeeId}`}>{item.firstName} {item.lastName}</a>}
+                                title={<a href={`/details?${QUERY_STRINGS.UserId}=${item.userId}`}>{item.firstName} {item.lastName}</a>}
                                 description={item.email}
                             />
                         </List.Item>

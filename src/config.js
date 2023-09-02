@@ -2,7 +2,7 @@
 export const BASE_URI = "https://localhost:7263";
 
 export const API_URI = {
-    Employee: '/api/Employee'
+    Employee: '/api/User'
 }
 
 export const USER_THEMES = {
@@ -11,7 +11,7 @@ export const USER_THEMES = {
 }
 
 export const QUERY_STRINGS = {
-    EmployeeId: "employeeId"
+    UserId: "userId"
 }
 
 export const USER_SETTINGS = {

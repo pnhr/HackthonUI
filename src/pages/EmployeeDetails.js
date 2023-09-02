@@ -6,7 +6,7 @@ import { loginRequest, protectedResources } from "../authConfig";
 
 export const EmployeeDetails = () => {
     const [searchParams] = useSearchParams();
-    const [EmployeeId, setEmployeeId] = useState(searchParams.get(QUERY_STRINGS.EmployeeId));
+    const [EmployeeId, setEmployeeId] = useState(searchParams.get(QUERY_STRINGS.UserId));
     const [Employee, setEmployee] = useState({ firstName: '', lastName: '' });
 
     const { isLoading, error, execute } = useFetchWithMsal({
