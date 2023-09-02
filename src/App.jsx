@@ -28,8 +28,8 @@ const Pages = () => {
     );
 };
 
-const getUserThemeSetting = () => {
-    if (USER_SETTINGS.theme === USER_THEMES.Dark)
+const getUserThemeSetting = (isDarkTheme) => {
+    if (isDarkTheme)
         return getDarkThemeSetting();
     return getLightThemeSetting();
 }
@@ -38,7 +38,10 @@ const getDarkThemeSetting = () => {
     return {
         algorithm: theme.darkAlgorithm,
         token: {
-            "fontSize": 12
+            "fontSize": 12,
+            "colorBgElevated": "#FFFFFF",
+            "headerTextColor": "#FFFFFF",
+            "colorBgHeader": "#092e5d"
         }
     }
 }
@@ -46,7 +49,9 @@ const getLightThemeSetting = () => {
     return {
         algorithm: theme.compactAlgorithm,
         token: {
-            "fontSize": 14
+            "fontSize": 14,
+            "colorBgHeader": "#092e5d",
+            "headerTextColor": "#FFFFFF"
         }
     }
 }
@@ -63,7 +68,7 @@ const App = ({ instance }) => {
     return (
         <MsalProvider instance={instance}>
             <ConfigProvider
-                theme = {getUserThemeSetting()}
+                theme={getUserThemeSetting(IsDarkTheme)}
             >
                 <PageLayout IsDarkTheme={IsDarkTheme} setIsDarkTheme={setIsDarkTheme}>
                     <Pages />

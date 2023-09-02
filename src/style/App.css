@@ -12,7 +12,7 @@ body {
 .logo {
   height: 4em;
   /* width: 100%; */
-  background: #FFFFFF;
+  /* background: #FFFFFF; */
   display: flex;
   justify-content: center;
   align-items: center;

@@ -74,7 +74,7 @@ export const PageLayout = (props) => {
 
     const { instance } = useMsal();
     const [collapsed, setCollapsed] = useState(false);
-    const { token: { colorBgContainer } } = theme.useToken();
+    const { token: { colorBgContainer, colorBgLayout, colorBgHeader, headerTextColor } } = theme.useToken();
 
     const navigate = useNavigate();
 
@@ -106,147 +106,103 @@ export const PageLayout = (props) => {
 
     return (
         <Layout>
-            <AuthenticatedTemplate>
-                <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
-                    <div className="logo">
-                        <img src={window.location.origin + '/logo512.png'} alt="logo" />
-                    </div>
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        onClick={({ key }) => {
-                            navigate(key);
+            <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
+                <div className="logo">
+                    <img src={window.location.origin + '/logo512.png'} alt="logo" />
+                </div>
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={['1']}
+                    onClick={({ key }) => {
+                        navigate(key);
+                    }}
+                    items={AppMenu}
+                    theme={IsDarkTheme ? 'dark' : 'light'}
+                />
+            </Sider>
+            <Layout>
+                <Typography>
+                    <Header
+                        style={{
+                            padding: 0,
+                            background: colorBgHeader
                         }}
-                        items={AppMenu}
-                        theme={IsDarkTheme ? 'dark' : 'light'}
-                    />
-                </Sider>
-                <Layout>
-                    <Typography>
-                        <Header
+                        className='header-content'
+                    >
+                        <Button
+                            type="text"
+                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                            onClick={() => setCollapsed(!collapsed)}
                             style={{
-                                padding: 0,
-                                background: colorBgContainer,
+                                fontSize: '16px',
+                                width: 64,
+                                height: 64,
+                                color: headerTextColor
                             }}
-                            className='header-content'
-                        >
-                            <Button
-                                type="text"
-                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                                onClick={() => setCollapsed(!collapsed)}
-                                style={{
-                                    fontSize: '16px',
-                                    width: 64,
-                                    height: 64,
-                                }}
-                            />
+                        />
 
-                            <div className="header-login-content">
+                        <div className="header-login-content">
+                            <Space>
+                                <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
+                                    unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
                                 <Space>
-                                    <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
-                                        unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
-                                    <Space>
-                                        <p>Hello, {activeAccount ? activeAccount.name : 'Unknown'}!</p>
-                                        <Button
-                                            type="text"
-                                            icon={<PoweroffOutlined />}
-                                            onClick={() => handleLogOutRedirect(instance)}
-                                            style={{
-                                                fontSize: '16px',
-                                                width: 64,
-                                                height: 64,
-                                                color: 'red'
-                                            }}
-                                        />
-                                    </Space>
+                                    <AuthenticatedTemplate>
+                                        <Space>
+                                            <p style={{ color: headerTextColor }}>Hello, {activeAccount ? activeAccount.name : 'Unknown'}!</p>
+                                            <Button
+                                                type="text"
+                                                icon={<PoweroffOutlined />}
+                                                onClick={() => handleLogOutRedirect(instance)}
+                                                style={{
+                                                    fontSize: '16px',
+                                                    width: 64,
+                                                    height: 64,
+                                                    color: 'red'
+                                                }}
+                                            />
+                                        </Space>
+                                    </AuthenticatedTemplate>
+                                    <UnauthenticatedTemplate>
+                                        <Space>
+                                            {/* below tag is required for alignment issues in the header */}
+                                            <p></p>
+                                            <Button
+                                                type="text"
+                                                icon={<LoginOutlined />}
+                                                onClick={() => handleLogin(instance)}
+                                                style={{
+                                                    fontSize: '16px',
+                                                    width: 64,
+                                                    height: 64,
+                                                    float: 'right'
+                                                }}
+                                            />
+                                        </Space>
+                                    </UnauthenticatedTemplate>
                                 </Space>
-                            </div>
-                        </Header>
-                        <Content
-                            style={{
-                                margin: '24px 16px',
-                                padding: 24,
-                                minHeight: 'Calc(100vh - 10em)',
-                            }}
-                        >
-                            <>
-                                {props.children}
-                            </>
-                        </Content>
-                        <Footer style={{ textAlign: 'center' }}>&copy; Developed by Padmasekhar!</Footer>
-                    </Typography>
-
-                </Layout>
-            </AuthenticatedTemplate>
-            <UnauthenticatedTemplate>
-                <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
-                    <div className="logo">
-                        <img src={window.location.origin + '/logo512.png'} alt="logo" />
-                    </div>
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        onClick={({ key }) => {
-                            navigate(key);
+                            </Space>
+                        </div>
+                    </Header>
+                    <Content
+                        style={{
+                            margin: '24px 16px',
+                            padding: 24,
+                            minHeight: 'Calc(100vh - 10em)',
                         }}
-                        items={[]}
-                        theme={IsDarkTheme ? 'dark' : 'light'}
-                    />
-                </Sider>
-                <Layout>
-                    <Typography>
-                        <Header
-                            style={{
-                                padding: 0,
-                                background: colorBgContainer,
-                            }}
-                            className='header-content'
-                        >
-                            <Button
-                                type="text"
-                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                                onClick={() => setCollapsed(!collapsed)}
-                                style={{
-                                    fontSize: '16px',
-                                    width: 64,
-                                    height: 64,
-                                }}
-                            />
-
-                            <div className="header-login-content">
-                                <Space>
-                                    <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
-                                        unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
-                                    <Button
-                                        type="text"
-                                        icon={<LoginOutlined />}
-                                        onClick={() => handleLogin(instance)}
-                                        style={{
-                                            fontSize: '16px',
-                                            width: 64,
-                                            height: 64,
-                                            float: 'right'
-                                        }}
-                                    />
-                                </Space>
-                            </div>
-                        </Header>
-                        <Content
-                            style={{
-                                margin: '24px 16px',
-                                padding: 24,
-                                minHeight: 'Calc(100vh - 10em)',
-                            }}
-                        >
+                    >
+                        <AuthenticatedTemplate>
+                            {props.children}
+                        </AuthenticatedTemplate>
+                        <UnauthenticatedTemplate>
                             <Card type="inner" title={<span style={{ color: 'red' }}>Please Login!</span>} style={{ width: '100%' }}>
                                 <p>You have not logged in yet. Please <span onClick={() => handleLogin(instance)} style={{ color: 'blue', cursor: 'pointer' }}>login</span> to see your ideas.</p>
                             </Card>
-                        </Content>
-                        <Footer style={{ textAlign: 'center' }}>&copy; Developed by Padmasekhar!</Footer>
-                    </Typography>
+                        </UnauthenticatedTemplate>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>&copy; Developed by Padmasekhar!</Footer>
+                </Typography>
 
-                </Layout>
-            </UnauthenticatedTemplate>
+            </Layout>
         </Layout>
     )
 }
