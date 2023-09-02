@@ -1,0 +1,182 @@
+{
+  "uuid": "3af5884d-510d-4f67-8b82-f338c9bcf07e",
+  "lastMigration": 25,
+  "name": "Hackthon",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "c1499709-59b6-49df-91e1-3cf0daeba420",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/Employee",
+      "responses": [
+        {
+          "uuid": "210c57d6-b406-4fc9-b991-62e1ee05e3e0",
+          "body": "{\n  \"isSuccess\": true,\n  \"message\": \"Success!\",\n  \"payload\": [\n    {\n      \"employeeId\": 2,\n      \"userId\": \"PADMASEKHAR-NEW\\\\padma\",\n      \"firstName\": \"Padmasekhar\",\n      \"middleName\": null,\n      \"lastName\": \"Pottepalem\",\n      \"contactNumber\": \"8008145155\",\n      \"email\": \"padmasekhar.ps16@gmail.com\",\n      \"isActive\": true,\n      \"managerId\": null,\n      \"managerName\": null,\n      \"managerEmail\": null\n    },\n    {\n      \"employeeId\": 4,\n      \"userId\": \"root\",\n      \"firstName\": \"Girish\",\n      \"middleName\": null,\n      \"lastName\": \"Velaga\",\n      \"contactNumber\": \"8008145155\",\n      \"email\": \"padmasekhar.ps16@gmail.com\",\n      \"isActive\": true,\n      \"managerId\": null,\n      \"managerName\": null,\n      \"managerEmail\": null\n    },\n    {\n      \"employeeId\": 5,\n      \"userId\": \"ps-admin@padmasekhar.com\",\n      \"firstName\": \"Prudhvi\",\n      \"middleName\": null,\n      \"lastName\": \"Muvvala\",\n      \"contactNumber\": \"8008145155\",\n      \"email\": \"padmasekhar.ps16@gmail.com\",\n      \"isActive\": true,\n      \"managerId\": null,\n      \"managerName\": null,\n      \"managerEmail\": null\n    },\n    {\n      \"employeeId\": 1005,\n      \"userId\": \"padmasekhar.ps@outlook.com\",\n      \"firstName\": \"Jagadeesh\",\n      \"middleName\": null,\n      \"lastName\": \"Rao\",\n      \"contactNumber\": \"8008145155\",\n      \"email\": \"padmasekhar.ps16@gmail.com\",\n      \"isActive\": true,\n      \"managerId\": null,\n      \"managerName\": null,\n      \"managerEmail\": null\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "141cfc35-5c53-49ca-af82-909757c4d0e8",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/Employee/:employeeId",
+      "responses": [
+        {
+          "uuid": "06b8ef07-4384-49fd-be22-5bd1d1d0f7ec",
+          "body": "{\r\n  \"isSuccess\": true,\r\n  \"message\": \"Success!\",\r\n  \"payload\": {\r\n    \"employeeId\": 2,\r\n    \"userId\": \"PADMASEKHAR-NEW\\\\padma\",\r\n    \"firstName\": \"Padmasekhar\",\r\n    \"middleName\": null,\r\n    \"lastName\": \"Pottepalem\",\r\n    \"contactNumber\": \"8008145155\",\r\n    \"email\": \"padmasekhar.ps16@gmail.com\",\r\n    \"isActive\": true,\r\n    \"managerId\": null,\r\n    \"managerName\": null,\r\n    \"managerEmail\": null\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "ada9684b-103e-4c58-b819-ea5b9d3c55fc",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/Logger",
+      "responses": [
+        {
+          "uuid": "a0fbe80d-08a4-4a6e-91b2-0c241f05a954",
+          "body": "{\r\n  \"isSuccess\": true,\r\n  \"message\": \"Success!\",\r\n  \"payload\": [\r\n    {\r\n      \"activityId\": 1,\r\n      \"employeeId\": 0,\r\n      \"employeeName\": \"Unknown\",\r\n      \"activityType\": \"Started : /\",\r\n      \"activityDesc\": \"Started : /\",\r\n      \"activityTimeStamp\": \"2023-08-29T07:56:45.455535\"\r\n    },\r\n    {\r\n      \"activityId\": 2,\r\n      \"employeeId\": 0,\r\n      \"employeeName\": \"Unknown\",\r\n      \"activityType\": \"Completed : /\",\r\n      \"activityDesc\": \"Completed : /\",\r\n      \"activityTimeStamp\": \"2023-08-29T07:57:10.6436374\"\r\n    },\r\n    {\r\n      \"activityId\": 3,\r\n      \"employeeId\": 0,\r\n      \"employeeName\": \"Unknown\",\r\n      \"activityType\": \"Started : /\",\r\n      \"activityDesc\": \"Started : /\",\r\n      \"activityTimeStamp\": \"2023-08-29T07:57:25.4649482\"\r\n    },\r\n    {\r\n      \"activityId\": 4,\r\n      \"employeeId\": 0,\r\n      \"employeeName\": \"Unknown\",\r\n      \"activityType\": \"Completed : /\",\r\n      \"activityDesc\": \"Completed : /\",\r\n      \"activityTimeStamp\": \"2023-08-29T07:57:25.7223575\"\r\n    },\r\n    {\r\n      \"activityId\": 5,\r\n      \"employeeId\": 0,\r\n      \"employeeName\": \"Unknown\",\r\n      \"activityType\": \"Started : /\",\r\n      \"activityDesc\": \"Started : /\",\r\n      \"activityTimeStamp\": \"2023-08-29T07:57:38.5809554\"\r\n    }\r\n  ]\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "27772315-158f-4bf2-aac2-a9e4b51d2e8a",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/Logger/error",
+      "responses": [
+        {
+          "uuid": "cf62c19b-653c-4cfe-8e71-c4b1d9dde62f",
+          "body": "{\n  \"isSuccess\": true,\n  \"message\": \"Success!\",\n  \"payload\": [\n    {\n      \"errorId\": 1,\n      \"employeeId\": 0,\n      \"employeeName\": \"Unknown\",\n      \"errorType\": \"System.Exception\",\n      \"errorMessage\": \"<GetActivityLogs>d__2\",\n      \"stackTrace\": \"   at DotnetApiTemplate.Api.Controllers.LoggerController.GetActivityLogs(SearchCriteria searchCriteria) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\Controllers\\\\LoggerController.cs:line 25\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\\r\\n--- End of stack trace from previous location ---\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\\r\\n   at DotnetApiTemplate.Api.AppLogHandlerMiddleware.InvokeAsync(HttpContext context, ILogger`1 logger) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\AppLogHandlerMiddleware.cs:line 36\",\n      \"errorTimeStamp\": \"2023-08-29T08:28:31.6054094\"\n    },\n    {\n      \"errorId\": 2,\n      \"employeeId\": 0,\n      \"employeeName\": \"Unknown\",\n      \"errorType\": \"System.ArgumentNullException\",\n      \"errorMessage\": \"<GetActivityLogs>d__2\",\n      \"stackTrace\": \"   at DotnetApiTemplate.Api.Controllers.LoggerController.GetActivityLogs(SearchCriteria searchCriteria) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\Controllers\\\\LoggerController.cs:line 25\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\\r\\n--- End of stack trace from previous location ---\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\\r\\n   at DotnetApiTemplate.Api.AppLogHandlerMiddleware.InvokeAsync(HttpContext context, ILogger`1 logger) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\AppLogHandlerMiddleware.cs:line 36\",\n      \"errorTimeStamp\": \"2023-08-29T08:33:07.1512805\"\n    },\n    {\n      \"errorId\": 3,\n      \"employeeId\": 0,\n      \"employeeName\": \"Unknown\",\n      \"errorType\": \"System.ArgumentNullException\",\n      \"errorMessage\": \"<GetActivityLogs>d__2\",\n      \"stackTrace\": \"   at DotnetApiTemplate.Api.Controllers.LoggerController.GetActivityLogs(SearchCriteria searchCriteria) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\Controllers\\\\LoggerController.cs:line 25\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\\r\\n--- End of stack trace from previous location ---\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\\r\\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\\r\\n   at DotnetApiTemplate.Api.AppLogHandlerMiddleware.InvokeAsync(HttpContext context, ILogger`1 logger) in C:\\\\Projects\\\\TemplatesHackthon\\\\DotnetApiTemplate\\\\DotnetApiTemplate.Api\\\\AppLogHandlerMiddleware.cs:line 42\",\n      \"errorTimeStamp\": \"2023-08-29T09:10:56.1673486\"\n    },\n    {\n      \"errorId\": 4,\n      \"employeeId\": 0,\n      \"employeeName\": \"Unknown\",\n      \"errorType\": \"System.InvalidOperationException\",\n      \"errorMessage\": \"<AuthenticateAsync>d__14\",\n      \"stackTrace\": \"   at Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync(HttpContext context, String scheme)\\r\\n   at Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluator.AuthenticateAsync(AuthorizationPolicy policy, HttpContext context)\\r\\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\\r\\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\\r\\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\\r\\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\\r\\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\",\n      \"errorTimeStamp\": \"2023-08-29T10:21:56.9363343\"\n    },\n    {\n      \"errorId\": 5,\n      \"employeeId\": 0,\n      \"employeeName\": \"Unknown\",\n      \"errorType\": \"Unknown Error Type\",\n      \"errorMessage\": null,\n      \"stackTrace\": null,\n      \"errorTimeStamp\": \"2023-08-29T10:53:11.3966493\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "c1499709-59b6-49df-91e1-3cf0daeba420"
+    },
+    {
+      "type": "route",
+      "uuid": "141cfc35-5c53-49ca-af82-909757c4d0e8"
+    },
+    {
+      "type": "route",
+      "uuid": "ada9684b-103e-4c58-b819-ea5b9d3c55fc"
+    },
+    {
+      "type": "route",
+      "uuid": "27772315-158f-4bf2-aac2-a9e4b51d2e8a"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}

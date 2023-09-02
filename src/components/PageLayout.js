@@ -1,10 +1,12 @@
 import "../style/lighttheme.css"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Button, Layout, Menu, theme, Card, Switch, Space, Typography } from 'antd';
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, IPublicClientApplication } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
-import { USER_THEMES } from "../config";
+import useFetchWithMsal from '../hooks/useFetchWithMsal';
+import { protectedResources } from "../authConfig";
+import { USER_THEMES, BASE_URI , PAGE_PATHS, API_URI } from "../config";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -18,22 +20,9 @@ import {
     ExclamationCircleOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Footer, Content } = Layout;
 
 
-const getMenu = () => {
-    let items = [];
-    items.push(getMenuItems('User', "/", <UserOutlined />));
-    items.push(getMenuItems('Admin', "/admin", <FormOutlined />, [
-        getMenuItems('App Config', "/appconfig", <SettingOutlined />)
-    ]));
-    items.push(getMenuItems('Support', "/support", <PhoneOutlined />, [
-        getMenuItems('Activity Logs', "/activitylogs", <ClockCircleOutlined />),
-        getMenuItems('Error Logs', "/errorlogs", <ExclamationCircleOutlined />)
-    ]));
-    return items;
-}
 
 const getMenuItems = (label, key, icon, children, type) => {
     return {
@@ -45,25 +34,52 @@ const getMenuItems = (label, key, icon, children, type) => {
     };
 }
 
+const handleLogin = (instance) => {
+    instance.loginPopup({
+        ...loginRequest,
+        redirectUri: '/redirect'
+    }).then((r) => console.log("then method called ", r))
+    .catch((error) => console.log(error));
+}
+const handleLogOutRedirect = (instance) => {
+    instance.logoutRedirect({
+        account: instance.getActiveAccount(),
+    });
+}
+
+const getMenu = (response) => {
+    let items = [];
+    if (!!response) {
+        let data = Array.from(response?.payload);
+        if (!!data && data.length > 0) {
+            data.forEach((group, idx) => {
+                let mItem = Array.from(group.menuItems);
+                let sumMenuItems = [];
+                if (!!mItem && mItem.length > 0) {
+                    sumMenuItems = mItem.map((itm, idx) => {
+                        return getMenuItems(itm.menuItem, itm.menuItem.toLowerCase());
+                    });
+                }
+                items.push(getMenuItems(group.appMenuGroupName, group.appMenuGroupName.toLowerCase(), null, sumMenuItems));
+            });
+
+            console.log("appMenu : ", items);
+        }
+    }
+    return items;
+}
+
 export const PageLayout = (props) => {
+    
     const { IsDarkTheme, setIsDarkTheme } = props;
+
+    const [AppMenu, setAppMenu] = useState([]);
+
     const { instance } = useMsal();
     const [collapsed, setCollapsed] = useState(false);
-    const { token: { colorBgContainer, logoBackground } } = theme.useToken();
+    const { token: { colorBgContainer } } = theme.useToken();
 
     const navigate = useNavigate();
-
-    const handleLogin = () => {
-        instance.loginPopup({
-            ...loginRequest,
-            redirectUri: '/redirect'
-        }).catch((error) => console.log(error));
-    }
-    const handleLogOutRedirect = () => {
-        instance.logoutRedirect({
-            account: instance.getActiveAccount(),
-        });
-    }
 
     let activeAccount;
 
@@ -71,101 +87,170 @@ export const PageLayout = (props) => {
         activeAccount = instance.getActiveAccount();
     }
 
+    const { isLoading, error, execute } = useFetchWithMsal({
+        scopes: protectedResources.apiTodoList.scopes.read,
+    });
+
+    
+
+    useEffect(() => {
+        let isCancelled = false;
+        let endpoint = BASE_URI + API_URI.AppMenu;
+        execute("GET", endpoint).then(response => {
+            let menuArr = getMenu(response);
+            console.log("menuArr : ", menuArr);
+            setAppMenu(menuArr);
+        });
+        
+      return () => {
+          isCancelled = true;
+      }
+    }, [execute, getMenu])
+    
+
     return (
         <Layout>
-            <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
-                <div className="logo">
-                    <img src={window.location.origin + '/logo512.png'} alt="logo" />
-                </div>
-                <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    onClick={({ key }) => {
-                        navigate(key);
-                    }}
-                    items={getMenu()}
-                    theme={IsDarkTheme ? 'dark' : 'light'}
-                />
-            </Sider>
-            <Layout>
-                <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                    className='header-content'
-                >
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
+            <AuthenticatedTemplate>
+                <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
+                    <div className="logo">
+                        <img src={window.location.origin + '/logo512.png'} alt="logo" />
+                    </div>
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        onClick={({ key }) => {
+                            navigate(key);
                         }}
+                        items={AppMenu}
+                        theme={IsDarkTheme ? 'dark' : 'light'}
                     />
+                </Sider>
+                <Layout>
+                    <Typography>
+                        <Header
+                            style={{
+                                padding: 0,
+                                background: colorBgContainer,
+                            }}
+                            className='header-content'
+                        >
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
 
-                    <div className="header-login-content">
-                        <Space>
-                            <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
-                                unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
-                            <AuthenticatedTemplate>
+                            <div className="header-login-content">
                                 <Space>
-                                    <p>Hello, {activeAccount ? activeAccount.name : 'Unknown'}!</p>
+                                    <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
+                                        unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
+                                    <Space>
+                                        <p>Hello, {activeAccount ? activeAccount.name : 'Unknown'}!</p>
+                                        <Button
+                                            type="text"
+                                            icon={<PoweroffOutlined />}
+                                            onClick={() => handleLogOutRedirect(instance)}
+                                            style={{
+                                                fontSize: '16px',
+                                                width: 64,
+                                                height: 64,
+                                                color: 'red'
+                                            }}
+                                        />
+                                    </Space>
+                                </Space>
+                            </div>
+                        </Header>
+                        <Content
+                            style={{
+                                margin: '24px 16px',
+                                padding: 24,
+                                minHeight: 'Calc(100vh - 10em)',
+                            }}
+                        >
+                            <>
+                                {props.children}
+                            </>
+                        </Content>
+                        <Footer style={{ textAlign: 'center' }}>&copy; Developed by Padmasekhar!</Footer>
+                    </Typography>
+
+                </Layout>
+            </AuthenticatedTemplate>
+            <UnauthenticatedTemplate>
+                <Sider trigger={null} collapsible collapsed={collapsed} theme={IsDarkTheme ? 'dark' : 'light'}>
+                    <div className="logo">
+                        <img src={window.location.origin + '/logo512.png'} alt="logo" />
+                    </div>
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        onClick={({ key }) => {
+                            navigate(key);
+                        }}
+                        items={[]}
+                        theme={IsDarkTheme ? 'dark' : 'light'}
+                    />
+                </Sider>
+                <Layout>
+                    <Typography>
+                        <Header
+                            style={{
+                                padding: 0,
+                                background: colorBgContainer,
+                            }}
+                            className='header-content'
+                        >
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+
+                            <div className="header-login-content">
+                                <Space>
+                                    <Switch size="small" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
+                                        unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
                                     <Button
                                         type="text"
-                                        icon={<PoweroffOutlined />}
-                                        onClick={handleLogOutRedirect}
+                                        icon={<LoginOutlined />}
+                                        onClick={() => handleLogin(instance)}
                                         style={{
                                             fontSize: '16px',
                                             width: 64,
                                             height: 64,
-                                            color: 'red'
+                                            float: 'right'
                                         }}
                                     />
                                 </Space>
-                            </AuthenticatedTemplate>
-                            <UnauthenticatedTemplate>
-                                <Button
-                                    type="text"
-                                    icon={<LoginOutlined />}
-                                    onClick={handleLogin}
-                                    style={{
-                                        fontSize: '16px',
-                                        width: 64,
-                                        height: 64,
-                                        float: 'right'
-                                    }}
-                                />
-                            </UnauthenticatedTemplate>
-                        </Space>
-                    </div>
-
-
-
-                </Header>
-
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 'Calc(100vh - 10em)',
-                        background: colorBgContainer,
-                    }}
-                >
-                    <Typography>
-                        <AuthenticatedTemplate>
-                            {props.children}
-                        </AuthenticatedTemplate>
-                        <UnauthenticatedTemplate>
+                            </div>
+                        </Header>
+                        <Content
+                            style={{
+                                margin: '24px 16px',
+                                padding: 24,
+                                minHeight: 'Calc(100vh - 10em)',
+                            }}
+                        >
                             <Card type="inner" title={<span style={{ color: 'red' }}>Please Login!</span>} style={{ width: '100%' }}>
-                                <p>You have not logged in yet. Please <span onClick={handleLogin} style={{ color: 'blue', cursor: 'pointer' }}>login</span> to see your ideas.</p>
+                                <p>You have not logged in yet. Please <span onClick={() => handleLogin(instance)} style={{ color: 'blue', cursor: 'pointer' }}>login</span> to see your ideas.</p>
                             </Card>
-                        </UnauthenticatedTemplate>
+                        </Content>
+                        <Footer style={{ textAlign: 'center' }}>&copy; Developed by Padmasekhar!</Footer>
                     </Typography>
-                </Content>
-            </Layout>
+
+                </Layout>
+            </UnauthenticatedTemplate>
         </Layout>
     )
 }

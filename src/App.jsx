@@ -1,40 +1,53 @@
 import { Routes, Route } from "react-router-dom";
 import { MsalProvider } from "@azure/msal-react";
-import { EmployeeList } from "./pages/EmployeeList";
-import { ReviewIdeas } from "./pages/ReviewIdeas";
+import { UserList } from "./pages/UserList";
+import { ActivityLogs, ReviewIdeas } from "./pages/ActivityLogs";
+
+import useFetchWithMsal from './hooks/useFetchWithMsal';
+import { protectedResources } from "./authConfig";
 
 import "./style/App.css";
 import { PageLayout } from "./components/PageLayout";
-import { CreateIdea } from "./pages/CreateIdea";
-import { EmployeeDetails } from "./pages/EmployeeDetails";
+import { UserDetails } from "./pages/UserDetails";
 import { ConfigProvider, theme } from "antd";
-import { USER_SETTINGS, USER_THEMES } from "./config"
-import { useState } from "react";
+import { PAGE_PATHS, USER_SETTINGS, USER_THEMES, BASE_URI, API_URI } from "./config"
+import { useEffect, useState } from "react";
 import { PageNotFound } from "./pages/PageNotFound";
+import { ErrorLogs } from "./pages/ErrorLogs";
 
 const Pages = () => {
     return (
         <Routes>
-            <Route path="/reviewideas" element={<ReviewIdeas />} />
-            <Route path="/createidea" element={<CreateIdea />} />
-            <Route path="/details" element={<EmployeeDetails />} />
-            <Route path="/" element={<EmployeeList />} />
-
+            <Route path={PAGE_PATHS.ErrorLogs.path} element={<ErrorLogs />} />
+            <Route path={PAGE_PATHS.ActivityLogs.path} element={<ActivityLogs />} />
+            <Route path={PAGE_PATHS.UserDetails.path} element={<UserDetails />} />
+            <Route path={PAGE_PATHS.UserList.path} element={<UserList />} />
+            <Route path={PAGE_PATHS.UserListTwo.path} element={<UserList />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
 };
 
-/**
- * msal-react is built on the React context API and all parts of your app that require authentication must be
- * wrapped in the MsalProvider component. You will first need to initialize an instance of PublicClientApplication
- * then pass this to MsalProvider as a prop. All components underneath MsalProvider will have access to the
- * PublicClientApplication instance via context as well as all hooks and components provided by msal-react. For more, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md
- */
+const getMenuItems = (label, key, icon, children, type) => {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    };
+}
+
 const App = ({ instance }) => {
     
     const [IsDarkTheme, setIsDarkTheme] = useState(USER_SETTINGS.theme === USER_THEMES.Dark);
+    const [AppMenu, setAppMenu] = useState([]);
+
+    const { isLoading, error, execute } = useFetchWithMsal({
+        scopes: protectedResources.apiTodoList.scopes.read,
+    });
+
+    
 
     const getUserThemeSetting = () => {
         if (IsDarkTheme)

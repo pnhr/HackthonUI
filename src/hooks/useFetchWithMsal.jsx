@@ -6,6 +6,9 @@ import {
 import { InteractionType, PopupRequest } from '@azure/msal-browser';
 import { useMsal, useMsalAuthentication } from "@azure/msal-react";
 
+import { notification } from 'antd'
+import { MESSAGES } from '../config';
+
 /**
  * Custom hook to call a web API using bearer token obtained from MSAL
  * @param {PopupRequest} msalRequest 
@@ -66,7 +69,11 @@ const useFetchWithMsal = (msalRequest) => {
             } catch (e) {
                 setError(e);
                 setIsLoading(false);
-                throw e;
+                console.error(e);
+                notification.error({
+                    message: "API Call Error",
+                    description: MESSAGES.API_CALL_ERROR
+                })
             }
         }
     };

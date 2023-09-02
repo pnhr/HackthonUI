@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useFetchWithMsal from '../hooks/useFetchWithMsal';
-import { loginRequest, protectedResources } from "../authConfig";
-import { Avatar, List, Spin, Card, Typography } from 'antd';
+import { protectedResources } from "../authConfig";
+import { Avatar, List, Spin, Breadcrumb } from 'antd';
 import { LineChartOutlined, FallOutlined, RiseOutlined } from '@ant-design/icons';
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { API_URI, BASE_URI, QUERY_STRINGS } from '../config';
 
 const getAvatarIcon = (status) => {
@@ -28,9 +27,17 @@ const getAvatarBackground = (status) => {
     return defaultIcon
 }
 
-export const EmployeeList = () => {
+const breadcrumbNameMap = {
+    '/errorlogs': 'Error Logs',
+    '/activitylogs': 'Activity Logs',
+    '/details/*': 'User Details',
+    '/': 'User List'
+};
 
-    const [Ideas, setIdeas] = useState([])
+export const UserList = () => {
+
+    const [Ideas, setIdeas] = useState([]);
+
     const { isLoading, error, execute } = useFetchWithMsal({
         scopes: protectedResources.apiTodoList.scopes.read,
     });
@@ -38,15 +45,16 @@ export const EmployeeList = () => {
     useEffect(() => {
         let isCancelled = false;
         let endpoint = BASE_URI + API_URI.Employee;
+
         execute("GET", endpoint).then((response) => {
             setIdeas(response?.payload);
-            console.log("Employee List response : ", response?.payload)
+            console.log("User List Page execute method");
         });
 
         return () => {
             isCancelled = true;
         }
-    }, [execute])
+    }, [execute]);
 
     return (
         <>
@@ -58,9 +66,9 @@ export const EmployeeList = () => {
                         <List.Item>
                             <List.Item.Meta
                                 avatar={
-                                    <Avatar shape="square" style={getAvatarBackground(item.employeeId)} icon={getAvatarIcon(item.employeeId)} />
+                                    <Avatar shape="square" style={getAvatarBackground(item.userId)} icon={getAvatarIcon(item.userId)} />
                                 }
-                                title={<a href={`/details?${QUERY_STRINGS.EmployeeId}=${item.employeeId}`}>{item.firstName} {item.lastName}</a>}
+                                title={<a href={`/details?${QUERY_STRINGS.userId}=${item.userId}`}>{item.firstName} {item.lastName}</a>}
                                 description={item.email}
                             />
                         </List.Item>
@@ -68,10 +76,10 @@ export const EmployeeList = () => {
                 />
             }
             {isLoading &&
-                <div className="loding">
-                    <Spin tip="Loading" size="large">
-                        <div className="content" />
-                    </Spin></div>}
+                <Spin tip="Loading" size="default">
+                    <div className="content" />
+                </Spin>
+                }
         </>
     )
 }

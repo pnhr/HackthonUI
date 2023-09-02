@@ -4,9 +4,9 @@ import { API_URI, BASE_URI, QUERY_STRINGS } from '../config';
 import useFetchWithMsal from '../hooks/useFetchWithMsal';
 import { loginRequest, protectedResources } from "../authConfig";
 
-export const EmployeeDetails = () => {
+export const UserDetails = () => {
     const [searchParams] = useSearchParams();
-    const [EmployeeId, setEmployeeId] = useState(searchParams.get(QUERY_STRINGS.EmployeeId));
+    const [EmployeeId, setEmployeeId] = useState(searchParams.get(QUERY_STRINGS.userId));
     const [Employee, setEmployee] = useState({ firstName: '', lastName: '' });
 
     const { isLoading, error, execute } = useFetchWithMsal({
