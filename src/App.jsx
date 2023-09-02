@@ -50,7 +50,7 @@ const App = ({ instance }) => {
             token: {
                 "fontSize": 12,
                 "headerbgc": '#1C1C1C',
-                "contentbgc": 'red'
+                "contentbgc": '#1F1F1F'
             }
         }
     }
