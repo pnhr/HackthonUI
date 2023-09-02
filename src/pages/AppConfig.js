@@ -1,5 +1,8 @@
 import React from 'react';
-import { Card, Space, Table } from 'antd';
+import { Card, Space, Table, Divider } from 'antd';
+import '../style/App.css'
+
+const { Meta } = Card;
 
 const columns = [
   {
@@ -67,6 +70,69 @@ const onChange = (pagination, filters, sorter, extra) => {
 
 const AppConfig = () => (
 <>
+  <div className='Title'>Employee Details</div>
+    <Card
+      style={{
+        width: '100%',
+        height: '30vh',
+        marginBottom: '10vh'
+      }}
+    >
+      <div style={{display: 'flex'}}>
+      <div>
+      <Card
+      hoverable
+      style={{
+      width: 100,
+      height: 50
+      }}
+    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+    >
+    <Meta/>
+    </Card>
+    </div>
+    <div className='ProfileDetailContainer' style={{marginLeft: '5vh'}}>
+      <div className='ProfileDetailContainerChild'>
+        <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+      </div>
+
+      <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+
+      <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+    </div>
+    <Divider type="vertical" style={{height: '20vh', borderWidth: '1px', marginTop: '10px', marginLeft: '49px', borderColor: '#FFFFFF'}}/>
+    <div className='ProfileDetailContainer' style={{marginLeft: '5vh'}}>
+      <div className='ProfileDetailContainerChild'>
+        <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+      </div>
+
+      <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+
+      <div style={{marginBottom: '2vh'}}>
+        <div className='ProfileTitleLabelName'>Field 1</div>
+        <div className='ProfileTitleLabelValue'>Value 1</div>
+      </div>
+    </div>
+    <div>
+    </div>
+    </div>
+    </Card>
+    <div className='Title'>Summary</div>
     <Card
       style={{
         width: '100%',
@@ -76,6 +142,7 @@ const AppConfig = () => (
     >
       <p>Card content</p>
     </Card>
+    <div className='Title'>Skills</div>
     <Table columns={columns} dataSource={data} onChange={onChange} pagination={false} style={{marginBottom: '10vh'}} /> </>
 );
 export default AppConfig;
