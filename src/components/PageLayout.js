@@ -38,8 +38,7 @@ const handleLogin = (instance) => {
     instance.loginPopup({
         ...loginRequest,
         redirectUri: '/redirect'
-    }).then((r) => console.log("then method called ", r))
-    .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
 }
 const handleLogOutRedirect = (instance) => {
     instance.logoutRedirect({
@@ -62,8 +61,6 @@ const getMenu = (response) => {
                 }
                 items.push(getMenuItems(group.appMenuGroupName, group.appMenuGroupName.toLowerCase(), null, sumMenuItems));
             });
-
-            console.log("appMenu : ", items);
         }
     }
     return items;
@@ -98,7 +95,6 @@ export const PageLayout = (props) => {
         let endpoint = BASE_URI + API_URI.AppMenu;
         execute("GET", endpoint).then(response => {
             let menuArr = getMenu(response);
-            console.log("menuArr : ", menuArr);
             setAppMenu(menuArr);
         });
         
