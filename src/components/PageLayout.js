@@ -50,7 +50,7 @@ export const PageLayout = (props) => {
     const { IsDarkTheme, setIsDarkTheme } = props;
     const { instance } = useMsal();
     const [collapsed, setCollapsed] = useState(false);
-    const { token: { colorBgContainer, logoBackground, headerbgc } } = theme.useToken();
+    const { token: { colorBgContainer, logoBackground, headerbgc, contentbgc } } = theme.useToken();
 
     const navigate = useNavigate();
 
@@ -151,7 +151,8 @@ export const PageLayout = (props) => {
                         margin: '50px 100px',
                         padding: 24,
                         minHeight: 'Calc(100vh - 10em)',
-                        background: colorBgContainer,
+                        //background: colorBgContainer,
+                        background: contentbgc
                     }}
                 >
                     <Pages/>

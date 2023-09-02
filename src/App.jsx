@@ -49,7 +49,8 @@ const App = ({ instance }) => {
             algorithm: theme.darkAlgorithm,
             token: {
                 "fontSize": 12,
-                "headerbgc": '#1C1C1C'
+                "headerbgc": '#1C1C1C',
+                "contentbgc": 'red'
             }
         }
     }
@@ -58,7 +59,8 @@ const App = ({ instance }) => {
             algorithm: theme.compactAlgorithm,
             token: {
                 "fontSize": 14,
-                "headerbgc": '#092e5d'
+                "headerbgc": '#092e5d',
+                "contentbgc": '#F5F5F5'
             }
         }
     }

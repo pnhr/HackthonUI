@@ -76,6 +76,6 @@ const AppConfig = () => (
     >
       <p>Card content</p>
     </Card>
-    <Table columns={columns} dataSource={data} onChange={onChange} pagination={false} /> </>
+    <Table columns={columns} dataSource={data} onChange={onChange} pagination={false} style={{marginBottom: '10vh'}} /> </>
 );
 export default AppConfig;
