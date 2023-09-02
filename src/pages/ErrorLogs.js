@@ -4,7 +4,6 @@ import { protectedResources } from "../authConfig";
 import { BASE_URI, API_URI } from '../config';
 import { Drawer, List } from 'antd';
 
-import useAuthentication from '../hooks/useAuthentication';
 import { FullscreenOutlined } from '@ant-design/icons';
 
 

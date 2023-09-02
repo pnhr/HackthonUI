@@ -28,6 +28,28 @@ const Pages = () => {
     );
 };
 
+const getUserThemeSetting = () => {
+    if (USER_SETTINGS.theme === USER_THEMES.Dark)
+        return getDarkThemeSetting();
+    return getLightThemeSetting();
+}
+
+const getDarkThemeSetting = () => {
+    return {
+        algorithm: theme.darkAlgorithm,
+        token: {
+            "fontSize": 12
+        }
+    }
+}
+const getLightThemeSetting = () => {
+    return {
+        algorithm: theme.compactAlgorithm,
+        token: {
+            "fontSize": 14
+        }
+    }
+}
 
 const App = ({ instance }) => {
     
@@ -37,31 +59,6 @@ const App = ({ instance }) => {
     const { isLoading, error, execute } = useFetchWithMsal({
         scopes: protectedResources.apiTodoList.scopes.read,
     });
-
-    
-
-    const getUserThemeSetting = () => {
-        if (IsDarkTheme)
-            return getDarkThemeSetting();
-        return getLightThemeSetting();
-    }
-
-    const getDarkThemeSetting = () => {
-        return {
-            algorithm: theme.darkAlgorithm,
-            token: {
-                "fontSize": 12
-            }
-        }
-    }
-    const getLightThemeSetting = () => {
-        return {
-            algorithm: theme.compactAlgorithm,
-            token: {
-                "fontSize": 14
-            }
-        }
-    }
 
     return (
         <MsalProvider instance={instance}>
