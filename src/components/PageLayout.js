@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button, Layout, Menu, theme, Card, Switch, Space, Typography, Divider } from 'antd';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
+import { createFromIconfontCN} from "@ant-design/icons";
 import { USER_THEMES } from "../config";
 import {
     MenuFoldOutlined,
@@ -25,7 +26,9 @@ const { Header, Sider, Content } = Layout;
 
 const getMenu = () => {
     let items = [];
-    items.push(getMenuItems('User', "/", <UserOutlined />));
+    items.push(getMenuItems('User', "/", <UserOutlined /> , [
+        getMenuItems('Profile', "/profile", <UserOutlined /> )
+    ]));
     items.push(getMenuItems('Admin', "/admin", <FormOutlined />, [
         getMenuItems('App Config', "/appconfig", <SettingOutlined />)
     ]));
@@ -84,11 +87,11 @@ export const PageLayout = (props) => {
                      <div className="logo">
                     <img src={window.location.origin + '/logo512.png'} alt="logo" />
                 </div>
-                <Divider type="vertical" style={{height: '20px', borderWidth: '1px', margin: '10px 10px', borderColor: '#FFFFFF'}}/>
+                <Divider className= '' type="vertical" style={{height: '20px', borderWidth: '1px', margin: '10px 10px', borderColor: '#FFFFFF'}}/>
                 
                     <div className="header-login-content">
                         <Space>
-                            <Switch size="medium" checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
+                            <Switch checked={IsDarkTheme} checkedChildren={USER_THEMES.Dark}
                                 unCheckedChildren={USER_THEMES.Light} onChange={(checked) => setIsDarkTheme(checked)} />
                             <AuthenticatedTemplate>
                                 <Space>
@@ -167,6 +170,22 @@ export const PageLayout = (props) => {
                     </UnauthenticatedTemplate>
                     </Typography>
                 </Content>
+                <footer
+                style={{
+                position: "fixed",
+                bottom: "0",
+                width: "100vw",
+                backgroundColor: "#ececec",
+                alignContent: "space-evenly",
+                paddingLeft: "46vw",
+                paddingRight: "40vw",
+                paddingBottom: "1vh",
+                paddingTop: "1vh",
+                marginTop: "1vh",
+                }}
+                >
+          &#169; UI Template
+        </footer>
             </Layout>
             </Layout>
     )

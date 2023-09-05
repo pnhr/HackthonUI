@@ -1,148 +1,149 @@
-import React from 'react';
-import { Card, Space, Table, Divider } from 'antd';
-import '../style/App.css'
-
-const { Meta } = Card;
+import { ConfigProvider, Table, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+const { Search } = Input;
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
   },
   {
-    title: 'Chinese Score',
-    dataIndex: 'chinese',
-    // sorter: {
-    //   compare: (a, b) => a.chinese - b.chinese,
-    //   multiple: 3,
-    // },
+    title: "AppConfig Name",
+    dataIndex: "name",
+    key: "name",
   },
   {
-    title: 'Math Score',
-    dataIndex: 'math',
-    // sorter: {
-    //   compare: (a, b) => a.math - b.math,
-    //   multiple: 2,
-    // },
+    title: "AppConfig Value",
+    dataIndex: "value",
+    key: "value",
   },
   {
-    title: 'English Score',
-    dataIndex: 'english',
-    // sorter: {
-    //   compare: (a, b) => a.english - b.english,
-    //   multiple: 1,
-    // },
+    title: "Description",
+    dataIndex: "desc",
+    key: "desc",
+  },
+  {
+    title: "Update Date",
+    dataIndex: "date",
+    key: "date",
+  },
+  {
+    title: "Update User",
+    dataIndex: "user",
+    key: "user",
+  },
+  {
+    title: "Action",
+    dataIndex: "",
+    key: "x",
+    render: () => (
+      <>
+        <a>Edit &nbsp;</a>
+        <a>Delete</a>
+      </>
+    ),
   },
 ];
+
 const data = [
   {
-    key: '1',
-    name: 'John Brown',
-    chinese: 98,
-    math: 60,
-    english: 70,
+    key: 1,
+    id: 1,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
   },
   {
-    key: '2',
-    name: 'Jim Green',
-    chinese: 98,
-    math: 66,
-    english: 89,
+    key: 2,
+    id: 2,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
   },
   {
-    key: '3',
-    name: 'Joe Black',
-    chinese: 98,
-    math: 90,
-    english: 70,
+    key: 3,
+    id: 3,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
   },
   {
-    key: '4',
-    name: 'Jim Red',
-    chinese: 88,
-    math: 99,
-    english: 89,
+    key: 4,
+    id: 4,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
+  },
+  {
+    key: 5,
+    id: 5,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
+  },
+  {
+    key: 6,
+    id: 6,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
+  },
+  {
+    key: 7,
+    id: 7,
+    name: "TeamMailID",
+    value: "skillCentralPortalTeam@StateStreet.com",
+    desc: "Email Id for development team",
+    date: "07/05/2001",
+    user: "Jha, Ayush",
   },
 ];
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
 
-const AppConfig = () => (
-<>
-  <div className='Title'>Employee Details</div>
-    <Card
-      style={{
-        width: '100%',
-        height: '30vh',
-        marginBottom: '10vh'
-      }}
-    >
-      <div style={{display: 'flex'}}>
-      <div>
-      <Card
-      hoverable
-      style={{
-      width: 100,
-      height: 50
-      }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-    >
-    <Meta/>
-    </Card>
-    </div>
-    <div className='ProfileDetailContainer' style={{marginLeft: '5vh'}}>
-      <div className='ProfileDetailContainerChild'>
-        <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
+function AppConfig() {
+  return (
+    <ConfigProvider>
+      <div style={{display:"inline-flex", width:"100%"}}>
+        <h2>App Config</h2>
+        <Search
+          placeholder="input search text"
+          allowClear
+          style={{ width: "15vw", marginTop: "2vh", marginLeft: "54vw",float: "right"}}
+        />
       </div>
-      </div>
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p
+              style={{
+                margin: 1,
+              }}
+            >
+              Value: {record.value}
+              &nbsp; Description: {record.desc}
+            </p>
+          ),
+          rowExpandable: (record) =>
+            record.desc.length || record.value.length > 30,
+        }}
+        dataSource={data}
+      />
+    </ConfigProvider>
+  );
+}
 
-      <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
-      </div>
-
-      <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
-      </div>
-    </div>
-    <Divider type="vertical" style={{height: '20vh', borderWidth: '1px', marginTop: '10px', marginLeft: '49px', borderColor: '#FFFFFF'}}/>
-    <div className='ProfileDetailContainer' style={{marginLeft: '5vh'}}>
-      <div className='ProfileDetailContainerChild'>
-        <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
-      </div>
-      </div>
-
-      <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
-      </div>
-
-      <div style={{marginBottom: '2vh'}}>
-        <div className='ProfileTitleLabelName'>Field 1</div>
-        <div className='ProfileTitleLabelValue'>Value 1</div>
-      </div>
-    </div>
-    <div>
-    </div>
-    </div>
-    </Card>
-    <div className='Title'>Summary</div>
-    <Card
-      style={{
-        width: '100%',
-        height: '30vh',
-        marginBottom: '10vh'
-      }}
-    >
-      <p>Card content</p>
-    </Card>
-    <div className='Title'>Skills</div>
-    <Table columns={columns} dataSource={data} onChange={onChange} pagination={false} style={{marginBottom: '10vh'}} /> </>
-);
 export default AppConfig;

@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { MsalProvider } from "@azure/msal-react";
 import { EmployeeList } from "./pages/EmployeeList";
 import { ReviewIdeas } from "./pages/ReviewIdeas";
-
+import ActivityLog from "./pages/ActivityLog";
 import "./style/App.css";
 import { PageLayout } from "./components/PageLayout";
 import { CreateIdea } from "./pages/CreateIdea";
@@ -13,10 +13,15 @@ import { useState } from "react";
 import { PageNotFound } from "./pages/PageNotFound";
 import HomePage from "./pages/HomePage";
 import AppConfig from "./pages/AppConfig";
+import ErrorLog from "./pages/ErrorLog";
+import Profile from "./pages/Profile";
 
 export const Pages = () => {
     return (
         <Routes>
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="/errorlogs" element={<ErrorLog />} />
+            <Route path="/activitylogs" element={<ActivityLog />} />
             <Route path="/appconfig" element={<AppConfig />} />
             <Route path="/reviewideas" element={<ReviewIdeas />} />
             <Route path="/createidea" element={<CreateIdea />} />
